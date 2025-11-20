@@ -8,9 +8,10 @@
 </head>
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto p-8">
-        <h1 class="text-4xl font-bold text-center mb-12">Galería de Imágenes de la NASA</h1>
-        <div id="image-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            </div>
+        <h1 class="text-4xl font-bold text-center mb-12">Imagen Astronómica del Día</h1>
+        <div id="image-gallery" class="flex justify-center">
+            <!-- La imagen del día se cargará aquí -->
+        </div>
 
         <div class="mt-24">
             <h2 class="text-3xl font-bold text-center mb-8">Formulario de Contacto</h2>
@@ -50,26 +51,27 @@
                     }
                     return response.json();
                 })
-                .then(data => {
-                    data.forEach(item => {
-                        if (item.media_type === 'image') {
-                            const card = `
-                                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
-                                    <img src="${item.url}" alt="${item.title}" class="w-full h-64 object-cover">
-                                    <div class="p-6">
-                                        <h2 class="text-2xl font-bold mb-2">${item.title}</h2>
-                                        <p class="text-gray-400 text-sm mb-4">${item.date}</p>
-                                        <p class="text-gray-300">${item.explanation.substring(0, 150)}...</p>
-                                    </div>
+                .then(item => { // La API ahora devuelve un solo objeto
+                    if (item.media_type === 'image') {
+                        // Usamos max-w-4xl para darle un tamaño máximo a la tarjeta
+                        const card = `
+                            <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg max-w-4xl">
+                                <img src="${item.url}" alt="${item.title}" class="w-full object-cover">
+                                <div class="p-8">
+                                    <h2 class="text-3xl font-bold mb-2">${item.title}</h2>
+                                    <p class="text-gray-400 text-sm mb-4">${item.date}</p>
+                                    <p class="text-gray-300 leading-relaxed">${item.explanation}</p>
                                 </div>
-                            `;
-                            gallery.innerHTML += card;
-                        }
-                    });
+                            </div>
+                        `;
+                        gallery.innerHTML = card; // Reemplazamos el contenido
+                    } else {
+                        gallery.innerHTML = '<p class="text-center text-xl">La publicación de hoy no es una imagen (puede ser un vídeo).</p>';
+                    }
                 })
                 .catch(error => {
-                    console.error('Error al obtener las imágenes de la NASA:', error);
-                    gallery.innerHTML = '<p class="text-center text-red-500 col-span-full">No se pudieron cargar las imágenes. Inténtalo de nuevo más tarde.</p>';
+                    console.error('Error al obtener la imagen de la NASA:', error);
+                    gallery.innerHTML = '<p class="text-center text-red-500 col-span-full">No se pudo cargar la imagen. Inténtalo de nuevo más tarde.</p>';
                 });
         });
     </script>
