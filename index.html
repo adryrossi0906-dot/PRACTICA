@@ -41,9 +41,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const gallery = document.getElementById('image-gallery');
-            const apiKey = 'DEMO_KEY'; // Usamos la clave de demostración de la NASA
-            const count = 3;
-            const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&count=${count}`;
+            const apiUrl = '/.netlify/functions/fetch-nasa-images';
 
             fetch(apiUrl)
                 .then(response => {
