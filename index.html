@@ -12,6 +12,29 @@
         <div id="image-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Las imágenes se cargarán aquí -->
         </div>
+
+        <!-- Netlify Form -->
+        <div class="mt-24">
+            <h2 class="text-3xl font-bold text-center mb-8">Formulario de Contacto</h2>
+            <form name="contact" method="POST" data-netlify="true" class="max-w-xl mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+                <input type="hidden" name="form-name" value="contact" />
+                <div class="mb-4">
+                    <label class="block text-gray-300 mb-2" for="name">Nombre</label>
+                    <input type="text" id="name" name="name" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-300 mb-2" for="email">Email</label>
+                    <input type="email" id="email" name="email" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-300 mb-2" for="message">Mensaje</label>
+                    <textarea id="message" name="message" rows="4" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-blue-500" required></textarea>
+                </div>
+                <div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Enviar Mensaje</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <script>
