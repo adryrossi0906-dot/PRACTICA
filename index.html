@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imágenes de la NASA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white">
+    <div class="container mx-auto p-8">
+        <h1 class="text-4xl font-bold text-center mb-12">Galería de Imágenes de la NASA</h1>
+        <div id="image-gallery" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Las imágenes se cargarán aquí -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gallery = document.getElementById('image-gallery');
+            const apiKey = 'DEMO_KEY'; // Usamos la clave de demostración de la NASA
+            const count = 3;
+            const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&count=${count}`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('La respuesta de la red no fue exitosa');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    data.forEach(item => {
+                        if (item.media_type === 'image') {
+                            const card = `
+                                <div class="bg-gray-800 rounded-lg overflow-hidden shadow-lg transform hover:scale-105 transition-transform duration-300">
+                                    <img src="${item.url}" alt="${item.title}" class="w-full h-64 object-cover">
+                                    <div class="p-6">
+                                        <h2 class="text-2xl font-bold mb-2">${item.title}</h2>
+                                        <p class="text-gray-400 text-sm mb-4">${item.date}</p>
+                                        <p class="text-gray-300">${item.explanation.substring(0, 150)}...</p>
+                                    </div>
+                                </div>
+                            `;
+                            gallery.innerHTML += card;
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al obtener las imágenes de la NASA:', error);
+                    gallery.innerHTML = '<p class="text-center text-red-500 col-span-full">No se pudieron cargar las imágenes. Inténtalo de nuevo más tarde.</p>';
+                });
+        });
+    </script>
+</body>
+</html>
