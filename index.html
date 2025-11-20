@@ -14,8 +14,11 @@
 
         <div class="mt-24">
             <h2 class="text-3xl font-bold text-center mb-8">Formulario de Contacto</h2>
-            <form name="contact" method="POST" data-netlify="true" class="max-w-xl mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+            <form name="contact" method="POST" action="/thank-you.html" data-netlify="true" netlify-honeypot="bot-field" class="max-w-xl mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
                 <input type="hidden" name="form-name" value="contact" />
+                <p class="hidden">
+                    <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+                </p>
                 <div class="mb-4">
                     <label class="block text-gray-300 mb-2" for="name">Nombre</label>
                     <input type="text" id="name" name="name" class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-4 text-white focus:outline-none focus:border-blue-500" required>
